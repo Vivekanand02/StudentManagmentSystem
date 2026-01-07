@@ -3,6 +3,7 @@ package com.jsp.managementSystem.service;
 import com.jsp.managementSystem.dto.request.LoginRequest;
 import com.jsp.managementSystem.dto.request.RegisterRequest;
 import com.jsp.managementSystem.dto.response.AuthResponse;
+import com.jsp.managementSystem.entity.Course;
 import com.jsp.managementSystem.entity.Student;
 import com.jsp.managementSystem.repo.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-
-
        private final StudentRepository studentRepository;
        private PasswordEncoder passwordEncoder;
        private AuthenticationManager authenticationManager;
@@ -52,5 +51,7 @@ public class AuthServiceImpl implements AuthService {
     public Student loadStudentByMail(String mail) {
         return null;
     }
+
+
 
 }
