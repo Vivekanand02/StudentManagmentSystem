@@ -1,31 +1,33 @@
 package com.jsp.managementSystem.service;
 
-import com.jsp.managementSystem.dto.request.AddCourse;
+import com.jsp.managementSystem.dto.request.CourseRequest;
 import com.jsp.managementSystem.dto.response.CourseResponse;
 import com.jsp.managementSystem.entity.Course;
 import com.jsp.managementSystem.repo.CourseRepository;
+import com.jsp.managementSystem.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
+
     private final CourseRepository courseRepository;
-    public Course addCourse(AddCourse addCourse){
-        if(courseRepository.existsById((addCourse.getCourseId()))){
-            throw new RuntimeException(("Course exists"));
+
+    @Override
+    public CourseResponse addCourse(CourseRequest courseRequest) {
+
+        if (courseRepository.existsByCourseName(courseRequest.getCourseName())) {
+            throw new RuntimeException("Course already exists");
         }
-        Course course=Course.builder()
-                .courseId(addCourse.getCourseId())
-                .courseFee((addCourse.getCourseFee()))
-                .courseName(addCourse.getCourseName())
+
+        Course course = Course.builder()
+                .courseName(courseRequest.getCourseName())
+                .courseFee(courseRequest.getCourseFee())
                 .build();
 
-        CourseResponse saveCourse=courseRepository.save(course);
+       Course savedCourse= courseRepository.save(course);
         return CourseResponse.builder()
-                .name(saveCourse.getCourseName())
-                .build();
-
-
+                .name(savedCourse.getCourseName()).build();
     }
 }

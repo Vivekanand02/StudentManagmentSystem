@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddCourse {
-    private int courseId;
+public class CourseRequest {
+
     private String courseName;
     private double courseFee;
 }
