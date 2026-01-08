@@ -7,10 +7,10 @@ import com.jsp.managementSystem.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/course")
@@ -22,6 +22,11 @@ public class CourseController {
     public ResponseEntity<CourseResponse> addCourse(@RequestBody CourseRequest courseRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body((CourseResponse) courseService.addCourse(courseRequest));
     }
+@GetMapping("/seeCourses")
+public ResponseEntity<List<Course>> showCourses() {
+
+    return ResponseEntity.ok(courseService.getAllCourses());
+}
 
 
 

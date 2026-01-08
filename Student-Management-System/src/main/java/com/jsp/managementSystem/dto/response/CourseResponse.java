@@ -10,4 +10,5 @@ import lombok.Setter;
 @Builder
 public class CourseResponse  {
     private String name;
+    private double fee;
 }

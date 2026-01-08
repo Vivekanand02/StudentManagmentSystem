@@ -4,9 +4,10 @@ import com.jsp.managementSystem.dto.request.CourseRequest;
 import com.jsp.managementSystem.dto.response.CourseResponse;
 import com.jsp.managementSystem.entity.Course;
 import com.jsp.managementSystem.repo.CourseRepository;
-import com.jsp.managementSystem.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,15 @@ public class CourseServiceImpl implements CourseService {
 
        Course savedCourse= courseRepository.save(course);
         return CourseResponse.builder()
-                .name(savedCourse.getCourseName()).build();
+                .name(savedCourse.getCourseName())
+                .fee(savedCourse.getCourseFee()).build();
     }
+
+    @Override
+    public List getAllCourses() {
+        return courseRepository.findAll();
+    }
+
+
+
 }
