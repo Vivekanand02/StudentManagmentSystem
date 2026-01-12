@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +39,23 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+    @Override
+    public Optional<Course> findByCourseId(int courseId) {
+        return courseRepository.findByCourseId(courseId);
+    }
 
-
+    @Override
+    public Course updateCourse(int courseId,CourseRequest courseRequest){
+        Course existing=courseRepository.findByCourseId(courseId)
+                .orElseThrow(()-> new RuntimeException("Course not found"));
+        existing.setCourseName(courseRequest.getCourseName());
+        existing.setCourseFee((courseRequest.getCourseFee()));
+        return courseRepository.save(existing);
+    }
+    public void deleteCourse(int courseId){
+        if(!courseRepository.existsById((long) courseId)){
+          throw new RuntimeException("Course not found");
+        }
+         courseRepository.deleteById((long) courseId);
+    }
 }
